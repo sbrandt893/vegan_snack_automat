@@ -1,9 +1,20 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:snackautomat/controller/_register_controller.dart';
 // ignore_for_file: prefer_const_constructors
 
-/// Snackautomat
-class SnackPage extends StatelessWidget {
+class AutomatScreen extends StatefulWidget {
+  @override
+  _AutomatScreenState createState() => _AutomatScreenState();
+}
+
+class _AutomatScreenState extends State<AutomatScreen> {
+  final IRegisterController _con = IRegisterController();
+
+  /// Snackautomat
+
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
@@ -33,74 +44,92 @@ class SnackPage extends StatelessWidget {
                                   _snackContainer(
                                       context,
                                       'https://cdn.shopify.com/s/files/1/0015/8882/2075/products/1033_1024x1024@2x.jpg?v=1523789645',
+                                      10,
                                       0),
                                   _snackContainer(
                                       context,
                                       'https://cdn.shopify.com/s/files/1/0015/8882/2075/products/1033_1024x1024@2x.jpg?v=1523789645',
+                                      11,
                                       0),
                                   _snackContainer(
                                       context,
                                       'https://cdn.shopify.com/s/files/1/0015/8882/2075/products/1033_1024x1024@2x.jpg?v=1523789645',
+                                      12,
                                       0),
                                   _snackContainer(
                                       context,
                                       'https://gastronomie-rhein-main.de/wp-content/uploads/2016/10/Dose-Sweet-Paprika.png',
+                                      20,
                                       150),
                                   _snackContainer(
                                       context,
                                       'https://www.manner.com/sites/default/files/2019-10/website_bilder_tp_glow_0.png',
+                                      21,
                                       65),
                                   _snackContainer(
                                       context,
                                       'https://img.rewe-static.de/4578503/26892520_digital-image.png',
+                                      22,
                                       200),
                                   _snackContainer(
                                       context,
                                       'https://paradisealacarte.com/wp-content/uploads/2016/10/0030-600x600.png',
+                                      30,
                                       60),
                                   _snackContainer(
                                       context,
                                       'https://img.rewe-static.de/3137237/31505381_digital-image.png',
+                                      31,
                                       60),
                                   _snackContainer(
                                       context,
                                       'https://tacs.b-cdn.net/696-large_default/skittles-wild-berry.jpg',
+                                      32,
                                       60),
                                   _snackContainer(
                                       context,
                                       'https://www.knabbershop.de/media/image/thumbnail/pp_30g_2013_packshot5efda6507afca_720x600.png',
+                                      40,
                                       60),
                                   _snackContainer(
                                       context,
                                       'https://www.star-trier.de/data/product/big/ungarisch_packshot(1).png',
+                                      41,
                                       75),
                                   _snackContainer(
                                       context,
                                       'https://img.rewe-static.de/7975855/31704418_digital-image.png',
+                                      42,
                                       80),
                                   _snackContainer(
                                       context,
                                       'https://cdn.webshopapp.com/shops/263536/files/294757341/600x600x2/freeway-freeway-cola.jpg',
+                                      50,
                                       30),
                                   _snackContainer(
                                       context,
                                       'https://neu-getraenke-food.de/wp-content/uploads/2020/05/neu-getraenke-gro%C3%9Fhandel_fitlove__produkte_effect-pfandfrei-033l-can.png',
+                                      51,
                                       90),
                                   _snackContainer(
                                       context,
                                       'https://lieferlimo.com/wp-content/uploads/LL0155.png',
+                                      52,
                                       180),
                                   _snackContainer(
                                       context,
                                       'https://cdn.shopify.com/s/files/1/0015/8882/2075/products/1033_1024x1024@2x.jpg?v=1523789645',
+                                      60,
                                       0),
                                   _snackContainer(
                                       context,
                                       'https://cdn.shopify.com/s/files/1/0015/8882/2075/products/1033_1024x1024@2x.jpg?v=1523789645',
+                                      61,
                                       0),
                                   _snackContainer(
                                       context,
                                       'https://cdn.shopify.com/s/files/1/0015/8882/2075/products/1033_1024x1024@2x.jpg?v=1523789645',
+                                      62,
                                       0),
                                 ],
                               ),
@@ -130,7 +159,7 @@ class SnackPage extends StatelessWidget {
               Expanded(
                 flex: 1,
                 child: Container(
-                  padding: EdgeInsets.all(10),
+                  padding: EdgeInsets.all(5),
                   decoration: BoxDecoration(
                     color: Colors.lightGreen[100],
                     border: Border(
@@ -188,7 +217,7 @@ class SnackPage extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              padding: EdgeInsets.all(5),
+                              padding: EdgeInsets.all(3),
                               child: Flex(
                                 direction: Axis.vertical,
                                 children: [
@@ -198,6 +227,14 @@ class SnackPage extends StatelessWidget {
                                       padding: const EdgeInsets.all(5),
                                       child: Container(
                                         color: Colors.black,
+                                        child: Column(
+                                          children: [
+                                            Expanded(
+                                              child: _message(
+                                                  context, _con.message),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -210,16 +247,12 @@ class SnackPage extends StatelessWidget {
                                         child: Column(
                                           children: [
                                             Expanded(
-                                              child: _buildLED(
-                                                  context,
-                                                  Colors.lightGreenAccent,
-                                                  'Preis'),
+                                              child: _buildLED(context, 'Preis',
+                                                  _con.displayPrice),
                                             ),
                                             Expanded(
-                                              child: _buildLED(
-                                                  context,
-                                                  Colors.lightGreenAccent,
-                                                  'Eingabe'),
+                                              child: _buildLED(context,
+                                                  'Eingabe', _con.displayDebit),
                                             ),
                                           ],
                                         ),
@@ -227,7 +260,7 @@ class SnackPage extends StatelessWidget {
                                     ),
                                   ),
                                   Flexible(
-                                    flex: 5,
+                                    flex: 6,
                                     child: Padding(
                                       padding: const EdgeInsets.all(5),
                                       child: Container(
@@ -270,13 +303,41 @@ class SnackPage extends StatelessWidget {
                                   Flexible(
                                     flex: 2,
                                     child: Padding(
-                                      padding: const EdgeInsets.all(8),
+                                      padding: const EdgeInsets.all(5),
                                       child: Container(
-                                        child: Flex(
-                                          direction: Axis.horizontal,
+                                        child: Row(
                                           children: [
-                                            Flexible(
+                                            Expanded(
                                               flex: 2,
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(5),
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                        color: Colors.grey),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            50),
+                                                    color: Colors.black,
+                                                  ),
+                                                  child: SizedBox(
+                                                    height: double.infinity,
+                                                    width: double.infinity,
+                                                    child: FittedBox(
+                                                      child: Text(
+                                                        'A',
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              flex: 3,
                                               child: Padding(
                                                 padding:
                                                     const EdgeInsets.all(5),
@@ -284,32 +345,21 @@ class SnackPage extends StatelessWidget {
                                                   decoration: BoxDecoration(
                                                     color: Colors.black,
                                                     border: Border.all(
-                                                        color: Colors.grey),
-                                                    borderRadius:
-                                                        BorderRadius.all(
-                                                      Radius.circular(50),
-                                                    ),
-                                                  ),
-                                                  child: Text(
-                                                    ' A ',
-                                                    style: TextStyle(
                                                       color: Colors.grey,
                                                     ),
                                                   ),
-                                                ),
-                                              ),
-                                            ),
-                                            Flexible(
-                                              flex: 3,
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(5),
-                                                child: Container(
-                                                    decoration: BoxDecoration(
-                                                        color: Colors.black,
-                                                        border: Border.all(
+                                                  child: SizedBox(
+                                                    height: double.infinity,
+                                                    child: FittedBox(
+                                                      child: Text(
+                                                        'Rückgeld',
+                                                        style: TextStyle(
                                                             color:
-                                                                Colors.grey))),
+                                                                Colors.white),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
                                               ),
                                             ),
                                           ],
@@ -356,7 +406,8 @@ class SnackPage extends StatelessWidget {
         ),
       );
 
-  Widget _snackContainer(BuildContext context, String link, int productPrice) =>
+  Widget _snackContainer(
+          BuildContext context, String link, int productID, int productPrice) =>
       InkWell(
         child: Padding(
           padding: const EdgeInsets.all(5),
@@ -376,7 +427,7 @@ class SnackPage extends StatelessWidget {
                       fit: BoxFit.cover),
                   Positioned(
                     child: Container(
-                      color: Color.fromRGBO(155, 255, 255, 0.6),
+                      color: Color.fromRGBO(155, 255, 255, 0.5),
                     ),
                   ),
                   Positioned(
@@ -403,6 +454,11 @@ class SnackPage extends StatelessWidget {
             ),
           ),
         ),
+        onTap: () {
+          setState(() {
+            _con.selectProduct(productID, productPrice);
+          });
+        },
       );
 
   Widget _controlPanel(BuildContext context, Color? color, String sign) =>
@@ -444,22 +500,54 @@ class SnackPage extends StatelessWidget {
             ),
           ),
         ),
+        onTap: () {
+          setState(() {
+            _con.insertCoin(centAmount);
+            log(centAmount.toString());
+          });
+        },
       );
 
-  Widget _buildLED(BuildContext context, Color? color, String sign) => InkWell(
-        child: Padding(
-          padding: const EdgeInsets.all(5),
-          child: Container(
-            decoration: BoxDecoration(
-              color: Colors.greenAccent[400],
-              border: Border.all(
-                color: Colors.grey,
+  Widget _buildLED(BuildContext context, String sign, int value) => Padding(
+        padding: const EdgeInsets.all(5),
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.greenAccent[400],
+            border: Border.all(
+              color: Colors.grey,
+            ),
+          ),
+          child: SizedBox(
+            width: double.infinity,
+            child: FittedBox(
+              alignment: Alignment.centerRight,
+              child: Text(
+                value.toString(),
+                textAlign: TextAlign.right,
+                style: TextStyle(color: Colors.white),
               ),
             ),
-            child: Center(
+          ),
+        ),
+      );
+
+  Widget _message(BuildContext context, String sign) => Padding(
+        padding: const EdgeInsets.all(5),
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.greenAccent[400],
+            border: Border.all(
+              color: Colors.grey,
+            ),
+          ),
+          child: SizedBox(
+            width: double.infinity,
+            child: FittedBox(
+              alignment: Alignment.centerRight,
               child: Text(
                 sign,
-                style: TextStyle(color: color),
+                textAlign: TextAlign.right,
+                style: TextStyle(color: Colors.white),
               ),
             ),
           ),
