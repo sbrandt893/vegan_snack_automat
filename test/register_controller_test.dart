@@ -8,6 +8,7 @@ import 'test_basis.dart';
 void main() {
   test('RC kann erstellt werden', () {
     final rc = IRegisterController();
+    // ignore: unnecessary_null_comparison
     expect(rc == null, false);
   });
 
@@ -221,6 +222,6 @@ void main() {
     expect(rc.selectedSlot, 1);
     expect(eq(rc.coins, [100, 100, 100, 100]), true);
     expect(eq(rc.payout, []), true);
-    expect(rc.message, 'Bitte passend(er) bezahlen');
+    expect(rc.message, 'Kein Wechselgeld, \nbitte passender bezahlen');
   });
 }

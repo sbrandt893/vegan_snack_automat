@@ -43,34 +43,24 @@ class RegisterController implements IRegisterController {
     if (isAdminMode == true) {
       return;
     }
-    if (displayDebit < price) {
-      _register = _register.copyWith(
-          debit: displayDebit, price: price, selectedSlot: slot);
-    }
 
-    if (displayDebit >= price) {
-      final newDebit = displayDebit - price;
-
-      ///var selectToProduce = slot;
-      _register = _register.copyWith(
-          debit: newDebit, selectedSlot: 0, producedSlot: slot, price: 0);
-    }
+    _register = _register.copyWith(price: price, selectedSlot: slot);
+    purchaseSnack();
   }
 
   @override
   void insertCoin(int nom) {
-    var newCoins = [...coins, nom];
-    var newDebit = displayDebit + nom;
+    final newCoins = [...coins, nom];
+    final newDebit = displayDebit + nom;
     newCoins.sort((a, b) => b.compareTo(a));
     if (isAdminMode == true) {
       _register = _register.copyWith(coins: newCoins);
       return;
     }
-    //if (selectedSlot >= 1 && newDebit >= displayPrice)  {
-    //  newDebit - displayPrice
-    //}
+
     _register = _register.copyWith(
         coins: newCoins, debit: newDebit, message: 'Was darf es sein?');
+    purchaseSnack();
   }
 
   @override
@@ -108,5 +98,45 @@ class RegisterController implements IRegisterController {
   void adminMode([bool? isAdminMode]) {
     _register =
         _register.copyWith(adminMode: isAdminMode ?? !_register.adminMode);
+    _register = _register.copyWith(message: getMessage());
+  }
+
+  /// purchase Snack if  possible
+  void purchaseSnack() {
+    if (isPurchasePossible()) {
+      _register = _register.copyWith(
+          debit: displayDebit - displayPrice,
+          producedSlot: selectedSlot,
+          selectedSlot: 0,
+          price: 0);
+    }
+  }
+
+  /// check if purchase is possible
+  bool isPurchasePossible() {
+    var userPayout = displayDebit - displayPrice;
+    if (displayDebit < displayPrice) return false;
+
+    if (selectedSlot == 0) return false;
+    for (var i = 0; userPayout > 0 && i < coins.length; i++) {
+      if (userPayout >= coins[i]) {
+        userPayout -= coins[i];
+      }
+    }
+    if (userPayout != 0) {
+      _register = _register.copyWith(
+          message: 'Kein Wechselgeld, \nbitte passender bezahlen');
+    }
+    return userPayout == 0;
+  }
+
+  /// all possible messages
+  String getMessage() {
+    if (isAdminMode == true) return 'Admin Mode';
+    if (displayDebit < displayPrice) {
+      return 'Bitte weiter zahlen';
+    } else {
+      return 'Was darf es sein?';
+    }
   }
 }

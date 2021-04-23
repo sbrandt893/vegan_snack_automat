@@ -5,6 +5,7 @@ import 'package:flutter/rendering.dart';
 import 'package:snackautomat/controller/_register_controller.dart';
 // ignore_for_file: prefer_const_constructors
 
+/// Static becomes dynamic
 class AutomatScreen extends StatefulWidget {
   @override
   _AutomatScreenState createState() => _AutomatScreenState();
@@ -12,8 +13,6 @@ class AutomatScreen extends StatefulWidget {
 
 class _AutomatScreenState extends State<AutomatScreen> {
   final IRegisterController _con = IRegisterController();
-
-  /// Snackautomat
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -73,7 +72,7 @@ class _AutomatScreenState extends State<AutomatScreen> {
                                       200),
                                   _snackContainer(
                                       context,
-                                      'https://paradisealacarte.com/wp-content/uploads/2016/10/0030-600x600.png',
+                                      'https://img.rewe-static.de/3137285/31505382_digital-image.png',
                                       30,
                                       60),
                                   _snackContainer(
@@ -137,6 +136,7 @@ class _AutomatScreenState extends State<AutomatScreen> {
                           ),
                         ),
                         Expanded(
+                          // ignore: avoid_redundant_argument_values
                           flex: 1,
                           child: Padding(
                             padding: const EdgeInsets.all(25.0),
@@ -157,6 +157,7 @@ class _AutomatScreenState extends State<AutomatScreen> {
                 ),
               ),
               Expanded(
+                // ignore: avoid_redundant_argument_values
                 flex: 1,
                 child: Container(
                   padding: EdgeInsets.all(5),
@@ -170,6 +171,7 @@ class _AutomatScreenState extends State<AutomatScreen> {
                     direction: Axis.vertical,
                     children: [
                       Flexible(
+                        // ignore: avoid_redundant_argument_values
                         flex: 1,
                         child: Padding(
                           padding: const EdgeInsets.all(5),
@@ -179,11 +181,9 @@ class _AutomatScreenState extends State<AutomatScreen> {
                               decoration: BoxDecoration(
                                 color: Colors.black38,
                                 border: Border(
-                                  bottom:
-                                      BorderSide(width: 3, color: Colors.black),
+                                  bottom: BorderSide(width: 3),
                                   left: BorderSide(
                                     width: 3,
-                                    color: Colors.black,
                                   ),
                                 ),
                               ),
@@ -209,11 +209,9 @@ class _AutomatScreenState extends State<AutomatScreen> {
                               decoration: BoxDecoration(
                                 color: Colors.black38,
                                 border: Border(
-                                  bottom:
-                                      BorderSide(width: 3, color: Colors.black),
+                                  bottom: BorderSide(width: 3),
                                   left: BorderSide(
                                     width: 3,
-                                    color: Colors.black,
                                   ),
                                 ),
                               ),
@@ -312,27 +310,34 @@ class _AutomatScreenState extends State<AutomatScreen> {
                                               child: Padding(
                                                 padding:
                                                     const EdgeInsets.all(5),
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                    border: Border.all(
-                                                        color: Colors.grey),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            50),
-                                                    color: Colors.black,
-                                                  ),
-                                                  child: SizedBox(
-                                                    height: double.infinity,
-                                                    width: double.infinity,
-                                                    child: FittedBox(
-                                                      child: Text(
-                                                        'A',
-                                                        style: TextStyle(
-                                                            color:
-                                                                Colors.white),
+                                                child: InkWell(
+                                                  child: Container(
+                                                    decoration: BoxDecoration(
+                                                      border: Border.all(
+                                                          color: Colors.grey),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              50),
+                                                      color: Colors.black,
+                                                    ),
+                                                    child: SizedBox(
+                                                      height: double.infinity,
+                                                      width: double.infinity,
+                                                      child: FittedBox(
+                                                        child: Text(
+                                                          'A',
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.white),
+                                                        ),
                                                       ),
                                                     ),
                                                   ),
+                                                  onTap: () {
+                                                    setState(() {
+                                                      _con.adminMode();
+                                                    });
+                                                  },
                                                 ),
                                               ),
                                             ),
@@ -419,7 +424,6 @@ class _AutomatScreenState extends State<AutomatScreen> {
                 border: Border.all(),
               ),
               child: Stack(
-                //mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.network(link,
                       width: double.infinity,
@@ -444,9 +448,6 @@ class _AutomatScreenState extends State<AutomatScreen> {
                           ),
                         ),
                       ),
-
-                      //Icon(Icons.ac_unit),
-                      //Text('$productID'),
                     ),
                   ),
                 ],
@@ -463,24 +464,26 @@ class _AutomatScreenState extends State<AutomatScreen> {
 
   Widget _controlPanel(BuildContext context, Color? color, String sign) =>
       InkWell(
-        child: Padding(
-          padding: const EdgeInsets.all(2),
-          child: Container(
-            decoration: BoxDecoration(
-              color: Colors.black,
-              border: Border.all(
-                color: Colors.grey,
+          child: Padding(
+            padding: const EdgeInsets.all(2),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.black,
+                border: Border.all(
+                  color: Colors.grey,
+                ),
               ),
-            ),
-            child: Center(
-              child: Text(
-                sign,
-                style: TextStyle(color: color),
+              child: Center(
+                child: Text(
+                  sign,
+                  style: TextStyle(color: color),
+                ),
               ),
             ),
           ),
-        ),
-      );
+          onTap: () {
+            setState(() {});
+          });
 
   Widget _userCoins(
           BuildContext context, Color? color, int centAmount, String denum) =>

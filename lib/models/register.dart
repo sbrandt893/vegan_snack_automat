@@ -1,5 +1,6 @@
 import 'package:snackautomat/models/_register.dart';
 
+/// Register class
 class Register implements IRegister {
   final List<int> _payout;
   final List<int> _coins;
@@ -27,6 +28,7 @@ class Register implements IRegister {
   @override
   int get selectedSlot => _selectedSlot;
 
+  /// Register
   Register(
       {List<int>? payout,
       List<int>? coins,
